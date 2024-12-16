@@ -1,4 +1,4 @@
-# Socialnetwork_Wechirp_Django
+# Socialnetwork_WeChirp_Django
 
 # WeChirp
 
