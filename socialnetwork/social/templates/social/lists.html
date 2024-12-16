@@ -1,0 +1,98 @@
+<div class="col-md-5 col-sm-12 border-bottom">
+    <h5>Add a Post..!!</h5>   
+</div>
+</div>
+<div class="row justify-content-center mt-3 mb-5 me-5">
+<div class="col-md-5 col-sm-12 border-bottom">
+    <form method="POST" enctype = "multipart/form-data">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary mt-3">Chirp</button>
+        </div>
+    </form>
+</div>
+
+
+{% for post in post_list %}
+<div class="row justify-content-center mt-5">
+<div class="col-md-8 col-sm-12 border-bottom">
+    {% if post.shared_by %}
+    <div>
+        <p class="post-text">
+            <a href="{% url 'profile' post.shread_by.profile.pk %}" >
+            <img class="rounded-circle post-image" height="45" width="45" src="{{post.shread_by.profile.picture.url}}"></img></a>
+            
+                {{post.created_on}} <span onclick="shareToggle('{{ post.pk }}')"><i class="far fa-share-square share-btn"></i></span>
+        </p> 
+    </div>
+    {% else %}
+    <div>
+        <p class="post-text">
+            <a href="{% url 'profile' post.author.profile.pk %}" >
+            <img class="rounded-circle post-image" height="45" width="45" src="{{post.author.profile.picture.url}}"></img></a>
+            
+                <a style="text-decoration:none" class="text-primary" href="{% url 'profile' post.author.profile.pk %}">@{{ post.author }} </a>
+                {{post.created_on}} <span onclick="shareToggle('{{ post.pk }}')"><i class="far fa-share-square share-btn"></i></span>
+        </p> 
+    </div>
+    {% endif %}
+    <form method="POST" action="{% url 'share-post' post.pk %}" class="d-none" id="{{ post.pk }}">
+        {% csrf_token %}
+        {{ shareform | crispy }}
+        <div class="d-grid gap-2">
+            <button class="btn btn-success mt-3">Share a Post</button>
+        </div>
+    </form>
+    {% if post.shread_by %}
+    <div class="position-relative  mb-3">
+        {% if post.shared_body %}
+        <p>{{ post.shared_body }}</p>
+        {% endif %}
+    </div> 
+    <div class="shared-post">
+        <p class="post-text">
+            <a href="{% url 'profile' post.author.profile.pk %}" >
+            <img class="rounded-circle post-image" height="45" width="45" src="{{post.author.profile.picture.url}}"></img></a>
+            
+                <a style="text-decoration:none" class="text-primary" href="{% url 'profile' post.author.profile.pk %}">@{{ post.author }} </a>
+                {{post.created_on}} <span onclick="shareToggle('{{ post.pk }}')"><i class="far fa-share-square share-btn"></i></span>
+        </p> 
+    </div>
+    {% endif %}
+    <div class="position-relative">
+        {% if post.image.count > 0 %}
+        <div class="row">
+            {% for img in post.image.all %}
+            <div class="col-md-4 col-xs-12">
+                <img src="{{ img.image.url }}" style="max-width:100%;height:auto;border-radius:10px;margin-bottom:10px;" ></img>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <p>
+            {{ post.body }}
+        </p> 
+        <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>  
+    </div>
+    <div class="d-flex flex-row">
+        <form method = "POST" action="{% url 'like' post.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}"/>
+            <button style="background-color : transparent; border:none ; box-shadow:none;" type="submit"><i class="fa-solid fa-thumbs-up" style="color: #3b6cde;"><span>&nbsp;{{ post.likes.all.count }}</span></i></button>
+        </form>
+
+    
+        <form method = "POST" action="{% url 'dislike' post.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}"/>
+            <button style="background-color : transparent; border:none ; box-shadow:none;" type="submit"><i class="fa-solid fa-thumbs-down" style="color: #d42525;;"><span>&nbsp;{{ post.dislikes.all.count }}</span></i></button>
+        </form>
+        <input type="hidden" name="next" value="{{ request.path }}"/>
+        <a href="{% url 'post-detail' post.pk %}" style="background-color : transparent; border:none ; box-shadow:none;"><i class="fa-solid fa-comment"></i></a>
+    </div>
+</div>
+</div>
+
+{% endfor %}

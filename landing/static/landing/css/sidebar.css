@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    --twitter-color: #50b7f5;
+    --twitter-background: #e6ecf0;
+  }
+  
+  .sidebarOption {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    
+  }
+  
+  .sidebarOption .material-icons,
+  .fa-twitter {
+    padding: 20px;
+  }
+  
+  .sidebarOption h2 {
+    font-weight: 800;
+    font-size: 20px;
+    margin-right: 20px;
+    color: black;
+  }
+  
+  .sidebarOption:hover {
+    background-color: var(--twitter-background);
+    border-radius: 30px;
+    color: var(--twitter-color);
+    transition: color 100ms ease-out;
+  }
+  
+  .sidebarOption.active {
+    color: var(--twitter-color);
+  }     
+  
+  .sidebar__tweet {
+    width: 100%;
+    background-color: var(--twitter-color);
+    border: none;
+    color: white;
+    font-weight: 900;
+    border-radius: 30px;
+    height: 50px;
+    margin-top: 20px;
+  }
+  
+  body {
+    display: flex;
+    height: 100vh;
+    max-width: 1800px;
+    margin-left: 50px;
+    margin-right: auto;
+    padding: 0 10px;
+  }
+  
+  .sidebar {
+    /* border-right: 1px solid var(--twitter-background); */
+    flex: 0.2;
+    min-width: 250px;
+    margin-bottom:20%;
+    bottom: 0;
+    /* padding-left: 5px; */
+    padding-right: 20px;
+    position: fixed;
+  }
+  
+  /* widgets */
+  .widgets {
+    flex: 0.3;
+  }
+  
+  .widgets__input {
+    display: flex;
+    align-items: center;
+    background-color: var(--twitter-background);
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  
+  .widgets__input input {
+    border: none;
+    background-color: var(--twitter-background);
+  }
+  
+  .widgets__searchIcon {
+    color: gray;
+  }
+  
+  .widgets__widgetContainer {
+    margin-top: 15px;
+    margin-left: 20px;
+    padding: 20px;
+    background-color: #f5f8fa;
+    border-radius: 20px;
+  }
+  
+  .widgets__widgetContainer h2 {
+    font-size: 18px;
+    font-weight: 800;
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+  .logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+    
+  }
+  
+  .logo img {
+    width: 64px;
+    margin-right: 0.6rem;
+    margin-top: -0.6rem;
+  }
+
+.nav{
+    /* overflow: hidden; */
+    position: fixed;
+    z-index: 5000;
+    /* left: 20vw; */
+    right: 0;
+    border-bottom: 1px solid rgb(189, 185, 185);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: nowrap;
+    height: 7vh;    
+    padding-right: 1%;
+    background-color: white;
+    
+}
+.push {
+    margin-left: 75%;
+}
+
+.wrapper
+{
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.navbar .input-group-text
+{
+  color: #50b7f5;
+  font-weight: bolder;
+  background-color: transparent;
+  border: none;
+}
+.navbar 
+{
+  margin-right: 5%;
+}
+
+.navbar input
+{
+  margin-right:3%;
+  background-color: #50b7f5;
+  border: none;
+  color: white;
+  padding-left: 7%;
+}
+.input-group
+{
+  flex-wrap: nowrap;
+}
+.navbar input::placeholder
+{
+  color: white;
+}
+
+
+
+/* Tweet button css */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}

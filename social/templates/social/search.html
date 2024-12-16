@@ -1,0 +1,110 @@
+{% extends 'landing/base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'landing/css/feed.css' %}"/>
+
+<div class ="container mgt">
+    {% for profile in profile_list %}
+        <div class="row justify-content-center mt-3">
+            <!-- <div class="col-md-5 col-sm-12 border-bottom position-relative">
+                <div>
+                    <a href="{% url 'profile' profile.pk %}" >
+                    <img class="rounded-circle post-image" height="45" width="45" src="{{profile.picture.url}}"> </img></a>
+                    <p class="post-text">
+                        <a style="text-decoration:none" class="text-primary" href="{% url 'profile' profile.pk %}">@{{ profile.user }} </a>
+                    </p> 
+                </div>
+                
+                {% if profile.location %}
+                    <p>
+                        {{ profile.location }}
+                    </p>
+                {% endif %}
+                    <p>
+                        Followers : {{ profile.followers.all.count }}
+                    </p>
+                
+            </div> -->
+
+
+
+
+            <div class="feed">
+              <div class="post" style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+                <div class="post__avatar">
+                  <img src="{{profile.picture.url}}" alt="" />
+                </div>
+
+                <div class="post__body">
+                  <div class="post__header">
+                    <div class="post__headerText">
+                      <h3>
+                        <div>
+                          <a style="text-decoration:none; color: black;" href="{% url 'profile' profile.pk %}">@{{ profile.user }} </a>
+                          <i></i>
+                        </div>
+                        {% if profile.location %}
+                            <span class="post__headerSpecial">{{ profile.location }}</span>
+                        {% endif %}
+                      </h3>
+                      <div >
+                        <p>
+                          Followers : {{ profile.followers.all.count }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+    {% endfor %}
+</div>
+{% endblock content %}
+
+
+
+
+
+<!-- <div class="feed">
+    <div class="post" style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+	      <div class="post__avatar">
+	        <img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png" alt="" />
+	      </div>
+
+	      <div class="post__body">
+	        <div class="post__header">
+	          <div class="post__headerText">
+	            <h3>
+	              <div>
+	                <p>@namra_2333</p>
+	                <i></i>
+	              </div>
+	              <span class="post__headerSpecial">Rajkot</span>
+	            </h3>
+	            <div>
+	            	<p>Follwing 2</p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+    </div>
+  </div> -->

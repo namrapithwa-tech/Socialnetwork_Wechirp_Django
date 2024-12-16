@@ -1,0 +1,39 @@
+.mgt
+{
+    margin-top: 10vh;
+}
+.mgl{
+    margin-left: 20vw;
+}
+.mgl2{
+    margin-left: 37vw;
+}
+.mgl3{
+    margin-left: 20vw;
+}
+
+.sent-message{
+    background-color: #f3f3f3;
+    border-radius: 30px;
+    padding: 10px 25px;
+    width: 35%;
+    float: right;
+}
+.recevied-message{
+    background-color: rgb(1, 196, 255);
+    color: #fff;
+    border-radius: 30px;
+    padding: 10px 25px;
+    width: 25%;
+    float: left;
+}
+.message-receiver-container
+{
+    margin-left: auto;
+    margin-right: 0;
+}
+.message-image{
+    border-radius: 10px;
+    max-width: 35%; 
+    height: auto;
+}

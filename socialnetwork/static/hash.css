@@ -1,0 +1,6 @@
+.hash_container {
+    position: sticky;
+    max-height: 100%;
+    display: flex;
+    border: 2px solid red;
+}

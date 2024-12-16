@@ -1,0 +1,158 @@
+{% extends 'landing/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'landing/css/profile.css' %}"/>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<div class="main">
+<div class="p_1">
+    <!-- <div class="row mt-5">
+        <div class="col-md-3 col-sm-6">
+            <a href="{% url 'post-list' %}" class="btn btn-light">Back to Feed</a>  
+        </div>
+    </div> -->
+    <div class="row justify-content-center mt-5" >
+        <div class="card col-md-5 col-sm-12 border-bottom px-5 pt-3" style="box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);">
+           <div class="fl"><img src="{{profile.picture.url}}" class="rounded-circle" width="80" height="80"></img>&nbsp;&nbsp;<h5>@{{ profile.user.username }}</h5>&nbsp;&nbsp; 
+            <span>
+                {% if request.user == user %}
+                <button class="btn btn-primary fl2">  <a href="{% url 'profile-edit' profile.pk %}" style="text-decoration:none; color:white">Edit Pofile</a></button>
+                {% endif %}
+            </span>
+        </div>
+
+           
+           {% if profile.name %}
+           <p class="py-2"><i class="fa-solid fa-user"></i> &nbsp;&nbsp;{{profile.name}}
+            {% else %}
+                    <h3 class="py-2">{{user.username}}<span>{% if request.user == user %}
+                        <a href="{% url 'profile-edit' profile.pk %}" style="color:#333"><i class="fa fa-edit"></i></a>
+                    {% endif %}</span></h3>
+            {% endif %}
+                    </p>
+    
+            {% if profile.location %}
+                <p class="py-2"><i class="fa-solid fa-location-dot"></i> &nbsp;&nbsp;{{profile.location}}</p> 
+            {% endif %}
+
+            {% if profile.birth_date %}
+                <p class="py-2"><i class="fa-solid fa-cake-candles"></i> &nbsp;&nbsp;{{profile.birth_date}}</p> 
+            {% endif %}
+
+            {% if profile.bio %}
+                <p class="py-2"><i class="fa-solid fa-address-card"></i> &nbsp;&nbsp;{{profile.bio}}</p> 
+            {% endif %}
+        
+            <div class="md-3">
+                <button class="btn btn-primary"><a href="{% url 'list-followers' profile.pk %}" style="text-decoration:none; color:white">{{ number_of_followers }} &nbsp;Followers</a></button>
+                <br>
+                <br>
+                {% if user == request.user %}
+                    {% else %}
+                        {% if is_following %}
+                        <form method="POST" action="{% url 'remove-follower' profile.pk %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-danger" type="submit">Unfollow</button>
+                        </form>
+                        <br>
+                        {% else %}
+                        <form method="POST" action="{% url 'add-follower' profile.pk %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-success" type="submit">Follow</button>
+                        </form>
+                        <br>
+                        {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% comment %} <button class="btn btn-success" onclick="commentReplayToggle('{{ post.pk }}')">Add a post</button>
+     {% endcomment %}
+</div>
+<br>
+
+ 
+<div class="p_2">
+    <div class="row">
+        <div class="feed">
+            {% comment %} <div class="tweetBox">
+            <form>
+                <div class="tweetbox__input">
+                <img
+                    src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"
+                    alt=""
+                />
+                <input type="text" placeholder="What's happening?" />
+                </div>
+                <button class="tweetBox__tweetButton">Tweet</button>
+            </form>
+            </div> {% endcomment %}
+
+            {% for post in posts %}
+                <div class="post">
+                    <div class="post__avatar">
+                        <a href="{% url 'profile' post.author.profile.pk %}" >
+                            <img class="rounded-circle post-image" height="45" width="45" src="{{post.author.profile.picture.url}}"></img>
+                        </a>
+                    </div>
+            
+                    <div class="post__body">
+                        <div class="post__header">
+                            <div class="post__headerText">
+                                <h3>
+                                <div class="ph">
+                                    <p>
+                                    
+                                            <a style="text-decoration:none;color:black;" href="{% url 'profile' post.author.profile.pk %}">@{{ post.author }} </a> &nbsp; <span class="post__headerSpecial">{{post.created_on}}</span>&nbsp;
+                                            {% if request.user == user %}
+                                            <a href="{% url 'post-edit' post.pk %}" style="color:#333;"><i class="fa fas fa-edit"></i></a> &nbsp;
+                                            <a href="{% url 'post-delete' post.pk %}" style="color:#333;"><i class="fa fas fa-trash"></i></a>
+                                            {% endif %}
+                                   
+                                    </p>
+                                    <i></i>
+                                </div>
+                                </h3>
+                            </div>
+                            <div class="post__headerDescription tag">
+                                <p>{{ post.body }}</p>  
+                            </div>
+                        </div>
+                    {% if post.image.count > 0 %}  
+                    {% for img in post.image.all %}
+                    <img
+                        src="{{ img.image.url }}"
+                        style=" max-width:100%;height:auto;border-radius:10px;margin-bottom:10px;"
+                    />
+                    {% endfor %}
+                    {% endif %}
+                        <div class="post__footer">
+                            <p>
+                                <form method = "POST" action="{% url 'like' post.pk %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}"/>
+                                    <button style="background-color : transparent; border:none ; box-shadow:none;" type="submit"><i class="fa-solid fa-thumbs-up" style="color: #3b6cde;"><span>&nbsp;{{ post.likes.all.count }}</span></i></button>
+                                </form>
+                            </p>
+
+                            <p>
+                                <form method = "POST" action="{% url 'dislike' post.pk %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}"/>
+                                    <button style="background-color : transparent; border:none ; box-shadow:none;" type="submit"><i class="fa-solid fa-thumbs-down" style="color: #d42525;;"><span>&nbsp;{{ post.dislikes.all.count }}</span></i></button>
+                                </form>
+                            </p>
+                            <p>
+                                <input type="hidden" name="next" value="{{ request.path }}"/>
+                <a href="{% url 'post-detail' post.pk %}" style="background-color : transparent; border:none ; box-shadow:none;"><i class="fa-solid fa-comment"></i></a>
+                            </p>
+                            <p>Shere post</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

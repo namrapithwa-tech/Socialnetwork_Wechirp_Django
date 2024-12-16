@@ -1,0 +1,58 @@
+.home-content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.post_profile {
+    width: 20vh;
+    height: 20vh;
+}
+
+p {
+	font-size: 14px;
+	line-height: 21px;
+}
+
+.card-container {
+    padding: 2%;
+	background-color: #e0f2f9;
+	border-radius: 5px;
+	width: 50%;
+	text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+.prof_info {
+    width: 30vw;
+}
+.card-container p {
+    text-align: left;
+}
+.buttons {
+    margin: 3%;
+}
+button.primary {
+	background-color: #03BFCB;
+	border: 1px solid #03BFCB;
+	border-radius: 3px;
+	color: #231E39;
+	font-weight: 500;
+	padding: 10px 25px;
+}
+.push-l {
+    margin: 1%;
+    margin-left: 8%;
+    margin-right: auto;
+}
+.cmt_footer{
+    text-align: left;
+}
+
+.counts {
+    margin-top: 2%;
+}
